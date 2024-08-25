@@ -2,14 +2,14 @@ const express = require('express');
 const mongoDB = require("./db");
 
 const app = express();
-const port =process.env.PORT || 5000;
+const port =process.env.PORT || 5001;
 
 // Initialize the MongoDB connection
 mongoDB();
 
 // CORS Middleware
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Make sure this matches your frontend URL
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001"); // Make sure this matches your frontend URL
     res.setHeader(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"

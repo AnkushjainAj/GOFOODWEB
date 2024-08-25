@@ -28,18 +28,18 @@
   }
   .added-to-cart-message {
     position: absolute;
-    bottom: 10px; /* Place the message near the bottom of the card */
+    top: -10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(72, 187, 120, 0.9); /* Softer green with slight transparency */
+    background-color: #28a745;
     color: white;
-    padding: 8px 12px;
+    padding: 10px;
     border-radius: 5px;
-    font-size: 0.9rem; /* Slightly smaller font size */
-    opacity: 0;
-    animation: fadeInOut 3s ease-in-out forwards;
-    z-index: 10; /* Ensure it appears on top of other elements */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: opacity 0.5s ease-in-out;
   }
+  
   
   @keyframes fadeInOut {
     0% { opacity: 0; }

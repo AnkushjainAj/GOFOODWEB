@@ -1,22 +1,38 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Card.css"; 
 import { useDispatchCart, useCart } from "./ContextReducer";
+import { useNavigate } from "react-router-dom";
 
 export default function Card(props) {
   let dispatch = useDispatchCart();
   let data = useCart();
   const priceRef = useRef();
-  let options = props.options; 
+  let options = props.options;
   let priceOptions = options ? Object.keys(options) : [];
 
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState("");
-  const [showMessage, setShowMessage] = useState(false); // Message state
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState(""); // Message text state
+  const navigate = useNavigate();
 
   // Calculate final price
   let finalPrice = qty * (options[size] ? parseInt(options[size]) : 0);
 
   const handleAddToCart = async () => {
+    const authToken = localStorage.getItem("authToken");
+
+    if (!authToken) {
+      // If user is not logged in, show login prompt message
+      setMessage("Please log in first!");
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 2000); // Hide after 2 seconds
+      return;
+    }
+
+    // Proceed with adding to cart if the user is logged in
     let food = [];
     for (const item of data) {
       if (item.id === props.foodItem._id) {
@@ -24,7 +40,7 @@ export default function Card(props) {
         break;
       }
     }
-    
+
     if (food.length > 0) {
       if (food.size === size) {
         await dispatch({ type: "UPDATE", id: props.foodItem._id, price: finalPrice, qty: qty });
@@ -47,7 +63,8 @@ export default function Card(props) {
       }
     }
 
-    // Show message
+    // Show message for item added to cart
+    setMessage("Item added to cart!");
     setShowMessage(true);
     setTimeout(() => {
       setShowMessage(false);
@@ -107,7 +124,7 @@ export default function Card(props) {
       {/* Message */}
       {showMessage && (
         <div className="added-to-cart-message">
-          Item added to cart!
+          {message}
         </div>
       )}
     </div>
