@@ -8,7 +8,7 @@ export default function MyOrder() {
   const fetchMyOrder = async () => {
     try {
       const email = localStorage.getItem("userEmail");
-      const response = await fetch("http://localhost:5001/api/myOrderData", {
+      const response = await fetch("http://localhost:5002/api/myOrderData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

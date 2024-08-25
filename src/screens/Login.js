@@ -12,7 +12,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5001/api/loginuser", {
+      const response = await fetch("http://localhost:5002/api/loginuser", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
